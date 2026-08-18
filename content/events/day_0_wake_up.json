@@ -7,6 +7,7 @@
       "id": "check_phone",
       "text": "Check your phone",
       "effects": [
+        {"type": "give_item", "item_id": "phone"},
         {"type": "advance_time", "segments": 1},
         {"type": "reveal_lore", "id": "local_news_01"}
       ]
@@ -30,7 +31,8 @@
       "id": "make_coffee",
       "text": "Make coffee and start your morning",
       "effects": [
-        {"type": "advance_time", "segments": 1}
+        {"type": "advance_time", "segments": 1},
+        {"type": "give_item", "item_id": "rubber_band"}
       ]
     },
     {

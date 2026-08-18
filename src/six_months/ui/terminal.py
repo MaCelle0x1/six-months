@@ -1,3 +1,4 @@
+from six_months.characters.creator import create_character
 from six_months.engine.game import Game
 
 
@@ -7,6 +8,8 @@ def show_state(game: Game) -> None:
     print(f"DAY {state.day} — {state.time_of_day.value.upper()}")
     print("=" * 52)
     print(f"Logistics: {state.logistics}")
+    if state.player:
+        print(f"{state.player.describe()}")
     print()
 
 
@@ -15,14 +18,15 @@ def run_terminal(game: Game) -> None:
     print("A grounded survival RPG")
     print()
 
-    if not game.state.player_name:
-        name = input("What is your name? ").strip()
-        game.state.player_name = name or "Unknown"
+    game.set_player(create_character())
+
+    print("\nCharacter created.")
+    print(f"You are {game.state.player.describe()}.")
+    print(f"Background: {game.state.player.background}")
 
     while game.state.running:
         show_state(game)
-        print(f"You are {game.state.player_name}.")
-        print()
+        print("What do you do?")
         print("1. Continue")
         print("2. End game")
         choice = input("> ").strip()

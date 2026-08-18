@@ -21,24 +21,36 @@ def test_opening_event_is_loaded_from_json() -> None:
     assert event.choices[0].id == "check_phone"
 
 
-def test_json_choice_can_advance_time_and_reveal_lore() -> None:
+def test_phone_choice_advances_time_reveals_lore_and_adds_phone() -> None:
     state = GameState()
     event = load_event(OPENING)
-    phone_choice = event.choices[0]
+    engine = EventEngine(state)
 
-    messages = [EventEngine(state).effects.apply(effect) for effect in phone_choice.effects]
+    messages = [engine.effects.apply(effect) for effect in event.choices[0].effects]
 
     assert state.time_of_day is TimeOfDay.AFTERNOON
+    assert state.inventory.has("phone")
     assert any(message and "unusual illness" in message for message in messages)
+
+
+def test_make_coffee_can_add_a_mundane_item() -> None:
+    state = GameState()
+    event = load_event(OPENING)
+    engine = EventEngine(state)
+
+    for effect in event.choices[3].effects:
+        engine.effects.apply(effect)
+
+    assert state.inventory.has("rubber_band")
+    assert state.time_of_day is TimeOfDay.AFTERNOON
 
 
 def test_json_choice_can_set_a_flag() -> None:
     state = GameState()
     event = load_event(OPENING)
-    sleep_choice = event.choices[4]
     engine = EventEngine(state)
 
-    for effect in sleep_choice.effects:
+    for effect in event.choices[4].effects:
         engine.effects.apply(effect)
 
     assert "slept_through_morning" in state.flags

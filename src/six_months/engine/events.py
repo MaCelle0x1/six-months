@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from six_months.engine.state import GameState
+from six_months.inventory.inventory import Item
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,8 @@ class Event:
     choices: tuple[Choice, ...] = ()
 
 
+ITEMS_PATH = Path(__file__).resolve().parents[3] / "content" / "items" / "items.json"
+
 LORE = {
     "local_news_01": "Your phone is sitting on the nightstand. Three notifications are waiting. Two are ordinary. The third is from your local news station: 'Officials investigating unusual illness at area hospital.'",
     "ambulance_outside": "You pull the curtain aside. An ambulance is parked down the street. A neighbor is standing outside in a robe, watching it.",
@@ -28,11 +31,28 @@ LORE = {
 }
 
 
+def load_items(path: str | Path = ITEMS_PATH) -> dict[str, Item]:
+    with Path(path).open("r", encoding="utf-8") as file:
+        data = json.load(file)
+    return {
+        raw["id"]: Item(
+            id=raw["id"],
+            name=raw["name"],
+            description=raw["description"],
+            tags=frozenset(raw.get("tags", [])),
+            throwable=raw.get("throwable", False),
+            consumable=raw.get("consumable", False),
+        )
+        for raw in data["items"]
+    }
+
+
 class EffectEngine:
     """Interprets generic effects declared by narrative content."""
 
     def __init__(self, state: GameState) -> None:
         self.state = state
+        self.items = load_items()
 
     def apply(self, effect: dict[str, Any]) -> str | None:
         effect_type = effect["type"]
@@ -51,6 +71,24 @@ class EffectEngine:
         if effect_type == "set_flag":
             self.state.flags.add(effect["id"])
             return None
+
+        if effect_type == "give_item":
+            item_id = effect["item_id"]
+            try:
+                item = self.items[item_id]
+            except KeyError as exc:
+                raise ValueError(f"Unknown item id: {item_id}") from exc
+            quantity = effect.get("quantity", 1)
+            self.state.inventory.add(item, quantity)
+            amount = f" x{quantity}" if quantity > 1 else ""
+            return f"Added to inventory: {item.name}{amount}."
+
+        if effect_type == "remove_item":
+            item_id = effect["item_id"]
+            quantity = effect.get("quantity", 1)
+            item = self.state.inventory.remove(item_id, quantity)
+            amount = f" x{quantity}" if quantity > 1 else ""
+            return f"Removed from inventory: {item.name}{amount}."
 
         raise ValueError(f"Unknown effect type: {effect_type}")
 

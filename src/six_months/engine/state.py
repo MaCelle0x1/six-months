@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
 from six_months.characters.character import Character
@@ -17,6 +17,7 @@ class GameState:
     running: bool = True
     player: Character | None = None
     logistics: int = 100
+    flags: set[str] = field(default_factory=set)
 
     def advance_time(self) -> None:
         if self.time_of_day is TimeOfDay.MORNING:

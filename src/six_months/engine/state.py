@@ -1,5 +1,7 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
+
+from six_months.characters.character import Character
 
 
 class TimeOfDay(str, Enum):
@@ -13,7 +15,7 @@ class GameState:
     day: int = 1
     time_of_day: TimeOfDay = TimeOfDay.MORNING
     running: bool = True
-    player_name: str | None = None
+    player: Character | None = None
     logistics: int = 100
 
     def advance_time(self) -> None:

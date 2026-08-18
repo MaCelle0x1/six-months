@@ -1,5 +1,7 @@
-from six_months.characters.creator import create_character
+from six_months.engine.events import EventEngine
 from six_months.engine.game import Game
+from six_months.engine.opening import opening_event
+from six_months.characters.creator import create_character
 
 
 def show_state(game: Game) -> None:
@@ -8,8 +10,6 @@ def show_state(game: Game) -> None:
     print(f"DAY {state.day} — {state.time_of_day.value.upper()}")
     print("=" * 52)
     print(f"Logistics: {state.logistics}")
-    if state.player:
-        print(f"{state.player.describe()}")
     print()
 
 
@@ -18,15 +18,17 @@ def run_terminal(game: Game) -> None:
     print("A grounded survival RPG")
     print()
 
-    game.set_player(create_character())
+    game.state.player = create_character()
+    print(f"\nYou are {game.state.player.describe()}.")
+    print()
+    input("Press Enter to begin...")
 
-    print("\nCharacter created.")
-    print(f"You are {game.state.player.describe()}.")
-    print(f"Background: {game.state.player.background}")
+    EventEngine(game.state).present(opening_event(game.state))
 
     while game.state.running:
         show_state(game)
-        print("What do you do?")
+        print(f"You are {game.state.player.describe()}.")
+        print()
         print("1. Continue")
         print("2. End game")
         choice = input("> ").strip()

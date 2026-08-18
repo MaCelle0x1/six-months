@@ -1,0 +1,13 @@
+{
+  "phone": {"type": "item", "name": "Phone"},
+  "wallet": {"type": "item", "name": "Wallet"},
+  "keys": {"type": "item", "name": "House Keys"},
+  "pocket_change": {"type": "item", "name": "Pocket Change"},
+  "rubber_band": {"type": "item", "name": "Rubber Band"},
+  "receipt": {"type": "item", "name": "Old Receipt"},
+  "pen": {"type": "item", "name": "Pen"},
+  "flashlight": {"type": "item", "name": "Small Flashlight"},
+  "water_bottle": {"type": "item", "name": "Water Bottle"},
+  "granola_bar": {"type": "item", "name": "Granola Bar"},
+  "bandages": {"type": "item", "name": "Adhesive Bandages"}
+}

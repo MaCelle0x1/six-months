@@ -1,0 +1,45 @@
+{
+  "id": "day_0_wake_up",
+  "title": "DAY 0 — MORNING",
+  "text": "You wake to the sound of an ambulance outside.\n\nThe siren has already stopped. You can hear voices somewhere down the street, but you can't make out what they're saying.\n\nYour alarm says 7:12 AM. Nothing else about the morning seems unusual.",
+  "choices": [
+    {
+      "id": "check_phone",
+      "text": "Check your phone",
+      "effects": [
+        {"type": "advance_time", "segments": 1},
+        {"type": "reveal_lore", "id": "local_news_01"}
+      ]
+    },
+    {
+      "id": "look_outside",
+      "text": "Look out the window",
+      "effects": [
+        {"type": "reveal_lore", "id": "ambulance_outside"}
+      ]
+    },
+    {
+      "id": "turn_on_tv",
+      "text": "Turn on the television",
+      "effects": [
+        {"type": "advance_time", "segments": 1},
+        {"type": "reveal_lore", "id": "local_news_02"}
+      ]
+    },
+    {
+      "id": "make_coffee",
+      "text": "Make coffee and start your morning",
+      "effects": [
+        {"type": "advance_time", "segments": 1}
+      ]
+    },
+    {
+      "id": "go_back_to_sleep",
+      "text": "Go back to sleep",
+      "effects": [
+        {"type": "advance_time", "segments": 2},
+        {"type": "set_flag", "id": "slept_through_morning"}
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ class TimeOfDay(str, Enum):
 
 @dataclass
 class GameState:
-    day: int = 1
+    day: int = 0
     time_of_day: TimeOfDay = TimeOfDay.MORNING
     running: bool = True
     player: Character | None = None

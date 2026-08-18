@@ -1,7 +1,11 @@
-from six_months.engine.events import EventEngine
-from six_months.engine.game import Game
-from six_months.engine.opening import opening_event
+from pathlib import Path
+
 from six_months.characters.creator import create_character
+from six_months.engine.events import EventEngine, load_event
+from six_months.engine.game import Game
+
+
+CONTENT_ROOT = Path(__file__).resolve().parents[3] / "content"
 
 
 def show_state(game: Game) -> None:
@@ -23,7 +27,9 @@ def run_terminal(game: Game) -> None:
     print()
     input("Press Enter to begin...")
 
-    EventEngine(game.state).present(opening_event(game.state))
+    opening_path = CONTENT_ROOT / "events" / "day_0_wake_up.json"
+    opening = load_event(opening_path)
+    EventEngine(game.state).present(opening)
 
     while game.state.running:
         show_state(game)

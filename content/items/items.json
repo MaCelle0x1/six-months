@@ -1,0 +1,15 @@
+{
+  "items": [
+    {"id": "phone", "name": "Phone", "description": "Your phone. A small piece of ordinary life that is going to become much less ordinary.", "tags": ["communication", "electronics"]},
+    {"id": "wallet", "name": "Wallet", "description": "Your wallet, containing the mundane pieces of your pre-apocalypse life.", "tags": ["personal"]},
+    {"id": "keys", "name": "House Keys", "description": "Your house keys. Right now they are completely unremarkable.", "tags": ["key", "personal"]},
+    {"id": "pocket_change", "name": "Pocket Change", "description": "A few coins you apparently forgot were in your pocket.", "tags": ["miscellaneous"], "throwable": true},
+    {"id": "rubber_band", "name": "Rubber Band", "description": "A plain rubber band. Nearly useless until the day it isn't.", "tags": ["miscellaneous", "crafting"], "throwable": true},
+    {"id": "receipt", "name": "Old Receipt", "description": "A faded receipt from somewhere you went a while ago. Completely useless, probably.", "tags": ["personal", "miscellaneous"]},
+    {"id": "pen", "name": "Pen", "description": "A cheap ballpoint pen. It still works.", "tags": ["tool", "miscellaneous"], "throwable": true},
+    {"id": "flashlight", "name": "Small Flashlight", "description": "A compact flashlight you keep in a drawer. The batteries appear to work.", "tags": ["light", "tool"]},
+    {"id": "water_bottle", "name": "Water Bottle", "description": "A reusable bottle. Empty for now.", "tags": ["container", "water"]},
+    {"id": "granola_bar", "name": "Granola Bar", "description": "An old emergency snack from the back of a kitchen cabinet. Probably still edible.", "tags": ["food"], "consumable": true},
+    {"id": "bandages", "name": "Adhesive Bandages", "description": "A small package of ordinary adhesive bandages.", "tags": ["medical"], "consumable": true}
+  ]
+}
